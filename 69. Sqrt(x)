@@ -1,0 +1,22 @@
+class Solution{
+public:
+	int mySqrt(int x) {
+		long long temp_min, temp_max,temp;
+		temp_min = 1;
+		temp_max = x;
+		if (x == 1)
+			temp = 1;
+		else
+		temp = x / 2;
+		while (temp_max - temp_min > 1) {
+			if (temp*temp > x) {
+				temp_max = temp;
+			}
+			else {
+				temp_min = temp;
+			}
+			temp = (temp_min + temp_max) / 2;
+		}
+		return int(temp);
+	}
+};
