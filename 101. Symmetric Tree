@@ -1,0 +1,54 @@
+class Solution {
+public:
+	bool isSymmetric(TreeNode* root) {
+		if (root == NULL) return 1;
+		else {
+			vector<struct TreeNode*> temp1, temp2;
+			vector<struct TreeNode*>::iterator iter, l;
+			struct TreeNode* p;
+			int count;
+			p = new struct TreeNode(1);
+			temp1.push_back(root);
+			int flag = 1;
+			while (flag == 1) {
+				count = 0;
+				iter = temp1.begin();
+				l = temp1.end() - 1;
+				while (iter < l) {
+					if ((*iter == NULL && *l != NULL) || (*iter != NULL && *l == NULL)) {
+						return 0;
+					}
+					else if (*iter != NULL && *l != NULL) {
+						if ((*iter)->val != (*l)->val) return 0;
+					}
+					iter++;
+					l--;
+				}
+				while (!temp1.empty()) {
+					p = temp1.back();
+					temp1.pop_back();
+					temp2.push_back(p);
+				}
+				while (!temp2.empty()) {
+					p = temp2.back();
+					temp2.pop_back();
+					if (p != NULL) {
+						temp1.push_back(p->left);
+						temp1.push_back(p->right);
+					}
+					else {
+						temp1.push_back(p);
+						temp1.push_back(p);
+					}
+				}
+				iter = temp1.begin();
+				while (iter != temp1.end()) {
+					if (*iter == NULL) count++;
+					iter++;
+				}
+				if (count == temp1.size()) flag = 0;
+			}
+			return 1;
+		}
+	}
+};
